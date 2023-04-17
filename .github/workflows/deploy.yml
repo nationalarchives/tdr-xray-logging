@@ -15,7 +15,7 @@ permissions:
   contents: write
 jobs:
   deploy-frontend:
-    uses: nationalarchives/tdr-github-actions/.github/workflows/ecs_deploy.yml@main
+    uses: nationalarchives/tdr-github-actions/.github/workflows/ecs_deploy.yml@Thanh-test
     with:
       service: frontend
       image-name: aws-otel-collector
