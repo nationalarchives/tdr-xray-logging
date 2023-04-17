@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   pre-deploy:
-    uses: nationalarchives/tdr-github-actions/.github/workflows/ecs_build.yml@Thanh-test
+    uses: nationalarchives/tdr-github-actions/.github/workflows/ecs_build.yml@main
     with:
       repo-name: tdr-xray-logging
       image-name: aws-otel-collector
