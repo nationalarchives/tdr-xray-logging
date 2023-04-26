@@ -4,7 +4,7 @@ This repo contains the custom AWS Distro for open telemetry custom image. Curren
 
 ## How it works
 
-Within the ```/.github/workflows/build.yml``` folder we have the following scripts
+Within the ```/.github/workflows/``` folder we have the following scripts
 - build.yml
 - deploy.yml
 
