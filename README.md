@@ -16,7 +16,7 @@ This is then used to build and push the custom docker image to the ECR repositor
 #### deploy.yml
 
 This script uses the [ecs.deploy.yml](https://github.com/nationalarchives/tdr-github-actions/blob/main/.github/workflows/ecs_deploy.yml) from tdr-github-actions repo passing it environment and version to deploy.
-This then pulls the relevant Open telemetry custom image from ECR and pushes it to the frontend environment.
+This pulls the relevant version of the custom image, tags it with the environment and pushes the tagged image to the ECR repository.
 
 ## Resources
 
