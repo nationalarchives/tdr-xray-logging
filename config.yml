@@ -20,6 +20,17 @@ processors:
     send_batch_size: 50
   batch/metrics:
     timeout: 60s
+  transform/redact:
+    trace_statements:
+      - context: resource
+        statements:
+          - replace_pattern(attributes["process.command_line"], "-Dplay.http.secret.key=[^\\s]*", "-Dplay.http.secret.key=REDACTED")
+          - replace_pattern(attributes["process.command_line"], "-Dauth.secret=[^\\s]*", "-Dauth.secret=REDACTED")
+    metric_statements:
+      - context: resource
+        statements:
+          - replace_pattern(attributes["process.command_line"], "-Dplay.http.secret.key=[^\\s]*", "-Dplay.http.secret.key=REDACTED")
+          - replace_pattern(attributes["process.command_line"], "-Dauth.secret=[^\\s]*", "-Dauth.secret=REDACTED")
 
 exporters:
   logging:
@@ -32,12 +43,12 @@ exporters:
 service:
   pipelines:
     traces:
-      receivers: [otlp,awsxray]
-      processors: [batch/traces]
+      receivers: [otlp, awsxray]
+      processors: [batch/traces, transform/redact]
       exporters: [awsxray]
     metrics:
       receivers: [otlp, statsd]
-      processors: [batch/metrics]
+      processors: [batch/metrics, transform/redact]
       exporters: [awsemf]
 
   extensions: [health_check]
