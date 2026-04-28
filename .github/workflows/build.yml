@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - main
+permissions: {}
 jobs:
   pre-deploy:
+    permissions:
+      contents: write
+      id-token: write
     uses: nationalarchives/tdr-github-actions/.github/workflows/ecs_build.yml@13faff54c193651ee30482ebdf01e083c8b14203 # v0.0.17
     with:
       repo-name: tdr-xray-logging
@@ -18,6 +22,9 @@ jobs:
   deploy:
     needs: pre-deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - run: gh workflow run deploy.yml -f environment=intg -f to-deploy=${{ needs.pre-deploy.outputs.next-version }}
